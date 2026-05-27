@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 
 const faqs = [
@@ -59,13 +59,22 @@ export default function FAQ() {
         </motion.div>
 
         {/* Accordion */}
-        <div className="max-w-3xl divide-y divide-border border-t border-border">
+        <div className="max-w-3xl border-t border-border">
           {faqs.map((faq, i) => {
             const isOpen = open === i
             return (
-              <div key={i} className="faq-item">
-                <button
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: i * 0.07 }}
+                className="faq-item"
+              >
+                <motion.button
                   onClick={() => toggle(i)}
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.15 }}
                   className="w-full flex items-start justify-between gap-4 py-5 text-left group"
                   aria-expanded={isOpen}
                 >
@@ -84,16 +93,24 @@ export default function FAQ() {
                       : <ChevronDown size={13} strokeWidth={2.5} />
                     }
                   </span>
-                </button>
+                </motion.button>
 
-                {/* Answer */}
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out
-                    ${isOpen ? 'max-h-96 pb-5' : 'max-h-0'}`}
-                >
-                  <p className="text-sm leading-relaxed">{faq.a}</p>
-                </div>
-              </div>
+                {/* Animated answer */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="answer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-sm leading-relaxed pb-5">{faq.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             )
           })}
         </div>

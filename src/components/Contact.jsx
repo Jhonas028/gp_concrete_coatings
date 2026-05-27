@@ -75,13 +75,26 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
-          {/* Left — info + map */}
-          <div className="flex flex-col gap-8">
-
-            {/* Contact info */}
+          {/* Left — slides in from left */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col gap-8"
+          >
+            {/* Contact info — staggered */}
             <div className="flex flex-col gap-4">
-              {info.map(({ icon: Icon, label, value, href }) => (
-                <div key={label} className="flex items-center gap-4">
+              {info.map(({ icon: Icon, label, value, href }, i) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  whileHover={{ x: 6, transition: { duration: 0.2 } }}
+                  className="flex items-center gap-4"
+                >
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                     <Icon size={17} className="text-primary" strokeWidth={1.75} />
                   </div>
@@ -95,12 +108,18 @@ export default function Contact() {
                       <p className="text-sm font-semibold text-text">{value}</p>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             {/* Map */}
-            <div className="w-full h-72 rounded-2xl overflow-hidden border border-border shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="w-full h-72 rounded-2xl overflow-hidden border border-border shadow-sm"
+            >
               <iframe
                 title="GP Concrete Coatings location — Livonia Michigan"
                 src="https://maps.google.com/maps?q=Livonia,Michigan&t=&z=12&ie=UTF8&iwloc=&output=embed"
@@ -111,14 +130,24 @@ export default function Contact() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-            </div>
+            </motion.div>
+          </motion.div>
 
-          </div>
-
-          {/* Right — form */}
-          <div className="bg-surface rounded-2xl p-8 border border-border">
+          {/* Right — slides in from right */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-surface rounded-2xl p-8 border border-border"
+          >
             {sent ? (
-              <div className="flex flex-col items-center justify-center text-center py-12 gap-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+                className="flex flex-col items-center justify-center text-center py-12 gap-4"
+              >
                 <CheckCircle2 size={48} className="text-primary" strokeWidth={1.5} />
                 <h3 className="text-text">Message Sent!</h3>
                 <p className="text-sm max-w-xs">
@@ -130,7 +159,7 @@ export default function Contact() {
                 >
                   Send Another
                 </button>
-              </div>
+              </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
@@ -200,13 +229,16 @@ export default function Contact() {
                   />
                 </div>
 
-                <button
+                <motion.button
                   type="submit"
                   disabled={loading}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.15 }}
                   className="btn btn--primary btn--lg w-full justify-center mt-2"
                 >
                   {loading ? 'Sending...' : 'Request Free Quote'}
-                </button>
+                </motion.button>
 
                 <p className="text-center text-xs text-muted">
                   No spam. No obligation. We'll reach out within 1 business day.
@@ -214,7 +246,7 @@ export default function Contact() {
 
               </form>
             )}
-          </div>
+          </motion.div>
 
         </div>
       </div>

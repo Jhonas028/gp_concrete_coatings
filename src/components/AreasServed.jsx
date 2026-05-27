@@ -31,26 +31,37 @@ export default function AreasServed() {
               we likely serve your area.
             </p>
 
-            {/* City pills */}
+            {/* City pills — staggered */}
             <div className="flex flex-wrap gap-2">
-              {cities.map((city) => (
-                <span
+              {cities.map((city, i) => (
+                <motion.span
                   key={city}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.25, delay: i * 0.04 }}
+                  whileHover={{ scale: 1.08, transition: { duration: 0.15 } }}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5
                     bg-surface border border-border rounded-full
-                    text-xs font-medium text-text
+                    text-xs font-medium text-text cursor-default
                     hover:border-primary hover:text-primary hover:bg-primary/5
-                    transition-colors duration-150 cursor-default"
+                    transition-colors duration-150"
                 >
                   <MapPin size={10} className="text-primary shrink-0" />
                   {city}
-                </span>
+                </motion.span>
               ))}
             </div>
           </motion.div>
 
           {/* Right — map embed */}
-          <div className="w-full h-105 rounded-2xl overflow-hidden border border-border shadow-sm">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="w-full h-105 rounded-2xl overflow-hidden border border-border shadow-sm"
+          >
             <iframe
               title="GP Concrete Coatings service area — Southeast Michigan"
               src="https://maps.google.com/maps?q=Southeast+Michigan&t=&z=9&ie=UTF8&iwloc=&output=embed"
@@ -61,7 +72,7 @@ export default function AreasServed() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </motion.div>
 
         </div>
 

@@ -1,48 +1,140 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Star, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import img1 from '../assets/gpcc_img1.jpg'
+import img2 from '../assets/gpcc_img2.jpg'
+import img3 from '../assets/gpcc_img3.jpg'
+import img4 from '../assets/gpcc_img4.jpg'
+import img5 from '../assets/gpcc_img5.jpg'
+import img6 from '../assets/gpcc_img6.jpg'
 
 const reviews = [
   {
+    image:    img2,
     quote:    'GP Concrete Coatings did our 3-car garage in one day. The floor looks absolutely incredible — way better than we expected. Worth every penny.',
     name:     'Jason R.',
     location: 'Troy, MI',
-    rating:   5,
+    avatar:   'J',
+    color:    '#1c00db',
   },
   {
+    image:    img1,
     quote:    'Professional from start to finish. They showed up on time, protected everything in our garage, and the finished product is flawless. Highly recommend.',
     name:     'Michelle T.',
     location: 'Canton, MI',
-    rating:   5,
+    avatar:   'M',
+    color:    '#7c3aed',
   },
   {
+    image:    img3,
     quote:    'We had them coat the floors in our commercial showroom. Fast turnaround, clean work, and our customers constantly compliment how the floors look.',
     name:     'Dave K.',
     location: 'Livonia, MI',
-    rating:   5,
+    avatar:   'D',
+    color:    '#059669',
   },
+  {
+    image:    img4,
+    quote:    'We finally finished our basement and the epoxy floor was the perfect final touch. GP Concrete did an amazing job — the color looks stunning and cleanup is so easy.',
+    name:     'Sarah M.',
+    location: 'Novi, MI',
+    avatar:   'S',
+    color:    '#db2777',
+  },
+  {
+    image:    img5,
+    quote:    'Hired GP Concrete Coatings for our warehouse floor. They handled the whole job with zero disruption to our operations. Tough, clean-looking, and has held up great.',
+    name:     'Tom B.',
+    location: 'Dearborn, MI',
+    avatar:   'T',
+    color:    '#d97706',
+  },
+  {
+    image:    img6,
+    quote:    'We got quotes from three companies and chose GP Concrete — best price, best communication, and the result speaks for itself. Our garage looks like a showroom.',
+    name:     'Lisa & Kevin H.',
+    location: 'Plymouth, MI',
+    avatar:   'L',
+    color:    '#0891b2',
+  },
+  
 ]
 
-function Stars({ count = 5 }) {
+function Stars() {
   return (
     <div className="flex items-center gap-0.5">
-      {Array.from({ length: count }).map((_, i) => (
-        <Star key={i} size={15} className="text-yellow-400 fill-yellow-400" />
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star key={i} size={13} className="text-yellow-400 fill-yellow-400" />
       ))}
     </div>
   )
 }
 
-export default function Testimonials() {
-  const [active, setActive] = useState(0)
+function ReviewCard({ review }) {
+  return (
+    <div className="bg-base border border-border rounded-2xl p-5 flex flex-col gap-3
+      h-full shadow-sm hover:border-primary/40 hover:shadow-md transition-all duration-200">
 
-  const prev = () => setActive(i => (i === 0 ? reviews.length - 1 : i - 1))
-  const next = () => setActive(i => (i === reviews.length - 1 ? 0 : i + 1))
+      {/* Top row: avatar + name */}
+      <div className="flex items-center gap-3">
+        <div
+          className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white font-bold text-sm"
+          style={{ backgroundColor: review.color }}
+        >
+          {review.avatar}
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-text leading-tight">{review.name}</p>
+          <p className="text-xs text-muted">{review.location}</p>
+        </div>
+      </div>
+
+      {/* Stars */}
+      <Stars />
+
+      {/* Quote */}
+      <p className="text-xs leading-relaxed text-text line-clamp-3 flex-1">
+        "{review.quote}"
+      </p>
+
+      {/* Project image thumbnail */}
+      <div className="w-full h-28 rounded-xl overflow-hidden">
+        <img
+          src={review.image}
+          alt={`Floor project by ${review.name}`}
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+    </div>
+  )
+}
+
+export default function Testimonials() {
+  const [active,  setActive]  = useState(0)
+  const [visible, setVisible] = useState(3)
+
+  useEffect(() => {
+    const update = () => {
+      if      (window.innerWidth < 640)  setVisible(1)
+      else if (window.innerWidth < 1024) setVisible(2)
+      else                               setVisible(3)
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  const maxIndex = reviews.length - visible
+
+  const prev = () => setActive(i => (i === 0 ? maxIndex : i - 1))
+  const next = () => setActive(i => (i === maxIndex ? 0 : i + 1))
 
   useEffect(() => {
     const timer = setInterval(next, 5000)
     return () => clearInterval(timer)
-  }, [])
+  }, [visible])
+
+  const cardPct = 100 / visible
 
   return (
     <section id="reviews" className="section bg-surface">
@@ -54,96 +146,64 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
+          className="mb-10"
         >
-          <span className="eyebrow mb-4 justify-center flex">Client Reviews</span>
-          <h2 className="text-text">What Our Clients Are Saying</h2>
+          <span className="eyebrow mb-4 block">Client Reviews</span>
+          <h2 className="text-text mb-4">What Our Clients Are Saying</h2>
         </motion.div>
 
-        {/* Desktop — 3 cards */}
-        <div className="hidden lg:grid grid-cols-3 gap-6 mb-10">
-          {reviews.map((r, i) => (
-            <ReviewCard key={i} review={r} />
-          ))}
-        </div>
-
-        {/* Mobile / Tablet — carousel */}
-        <div className="lg:hidden mb-8">
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${active * 100}%)` }}
-            >
-              {reviews.map((r, i) => (
-                <div key={i} className="w-full shrink-0 px-1">
-                  <ReviewCard review={r} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Controls */}
-          <div className="flex items-center justify-center gap-4 mt-6">
-            <button
-              onClick={prev}
-              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted hover:border-primary hover:text-primary transition-colors"
-              aria-label="Previous review"
-            >
-              <ChevronLeft size={16} />
-            </button>
-
-            {/* Dots */}
-            <div className="flex gap-2">
-              {reviews.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActive(i)}
-                  className={`h-2 rounded-full transition-all duration-300
-                    ${active === i ? 'w-6 bg-primary' : 'w-2 bg-border'}`}
-                  aria-label={`Go to review ${i + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={next}
-              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted hover:border-primary hover:text-primary transition-colors"
-              aria-label="Next review"
-            >
-              <ChevronRight size={16} />
-            </button>
-          </div>
-        </div>
-
-        {/* Google Reviews CTA */}
-        <div className="text-center">
-          <a
-            href="https://www.google.com/search?q=GP+Concrete+Coatings+Michigan+reviews"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary underline underline-offset-4 hover:text-primary-dk transition-colors"
+        {/* Carousel track */}
+        <div className="overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${active * cardPct}%)` }}
           >
-            View More Reviews on Google
-            <ExternalLink size={13} strokeWidth={2.5} />
-          </a>
+            {reviews.map((r, i) => (
+              <div
+                key={i}
+                style={{ minWidth: `${cardPct}%` }}
+                className="px-2 flex flex-col"
+              >
+                <ReviewCard review={r} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Controls — same as Gallery */}
+        <div className="flex items-center justify-center gap-4 mt-7">
+          <button
+            onClick={prev}
+            className="w-9 h-9 rounded-full border border-border flex items-center justify-center
+              text-muted hover:border-primary hover:text-primary transition-colors"
+            aria-label="Previous"
+          >
+            <ChevronLeft size={16} />
+          </button>
+
+          <div className="flex gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`h-2 rounded-full transition-all duration-300
+                  ${active === i ? 'w-6 bg-primary' : 'w-2 bg-border'}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={next}
+            className="w-9 h-9 rounded-full border border-border flex items-center justify-center
+              text-muted hover:border-primary hover:text-primary transition-colors"
+            aria-label="Next"
+          >
+            <ChevronRight size={16} />
+          </button>
         </div>
 
       </div>
     </section>
-  )
-}
-
-function ReviewCard({ review }) {
-  return (
-    <div className="card flex flex-col gap-4 h-full">
-      <Stars count={review.rating} />
-      <p className="text-sm leading-relaxed flex-1 text-text">
-        "{review.quote}"
-      </p>
-      <div className="pt-3 border-t border-border">
-        <p className="text-sm font-semibold text-text">{review.name}</p>
-        <p className="text-xs text-muted">{review.location}</p>
-      </div>
-    </div>
   )
 }
