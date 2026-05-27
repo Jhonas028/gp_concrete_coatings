@@ -1,1 +1,166 @@
 @import "tailwindcss";
+
+@theme {
+  /* ── Surfaces ── */
+  --color-base:       #ffffff;
+  --color-surface:    #f5f5f7;
+  --color-elevated:   #ececf0;
+  --color-border:     #e2e2e8;
+
+  /* ── Brand ── */
+  --color-primary:    #1c00db;
+  --color-primary-lt: #3d20f0;
+  --color-primary-dk: #1400a8;
+
+  /* ── Text ── */
+  --color-text:       #111111;
+  --color-muted:      #6b7280;
+
+  /* ── Dark canvas (hero, footer) ── */
+  --color-canvas:     #0a0a0a;
+  --color-canvas-2:   #111111;
+
+  /* ── Font ── */
+  --font-sans: "Poppins", sans-serif;
+}
+
+/* ─────────────────────────────────────────
+   BASE
+───────────────────────────────────────── */
+@layer base {
+  html {
+    @apply scroll-smooth scroll-p-20;
+  }
+
+  body {
+    @apply bg-base text-text font-sans overflow-x-hidden antialiased;
+  }
+
+  .container {
+    @apply max-w-6xl w-full mx-auto px-5 md:px-10;
+  }
+
+  h1 { @apply font-bold text-[clamp(2.4rem,5vw,3.75rem)] leading-[1.1] tracking-tight; }
+  h2 { @apply font-bold text-[clamp(1.8rem,4vw,2.75rem)] leading-tight tracking-tight; }
+  h3 { @apply font-semibold text-[clamp(1.15rem,2.5vw,1.6rem)] leading-snug; }
+  h4 { @apply font-semibold text-[clamp(1rem,2vw,1.2rem)]; }
+
+  p  { @apply text-muted leading-relaxed; }
+  a  { @apply transition-colors duration-200; }
+}
+
+/* ─────────────────────────────────────────
+   COMPONENTS
+───────────────────────────────────────── */
+@layer components {
+
+  /* ── Section ── */
+  .section {
+    @apply py-20 md:py-28;
+  }
+
+  /* ── Eyebrow label (sits above section titles) ── */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5
+           font-semibold uppercase tracking-[0.2em] text-[0.7rem] text-primary;
+  }
+  .eyebrow::before {
+    @apply content-[''] block w-6 h-[2px] bg-primary flex-shrink-0;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+           font-semibold uppercase tracking-widest text-xs
+           px-7 py-3.5 rounded-full border-2 border-transparent
+           cursor-pointer transition-all duration-200 whitespace-nowrap;
+  }
+  .btn--primary {
+    @apply bg-primary text-white hover:bg-primary-lt
+           hover:shadow-[0_0_28px_rgba(28,0,219,0.35)] hover:-translate-y-px;
+  }
+  .btn--outline {
+    @apply border-border text-text
+           hover:border-primary hover:text-primary hover:bg-primary/5;
+  }
+  .btn--dark-outline {
+    @apply border-white/25 text-white
+           hover:border-primary hover:text-primary;
+  }
+  .btn--lg {
+    @apply px-9 py-4 text-sm;
+  }
+
+  /* ── Cards ── */
+  .card {
+    @apply bg-base border border-border rounded-xl p-7
+           transition-all duration-200
+           hover:border-primary/40 hover:-translate-y-1
+           hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)];
+  }
+
+  .card--service {
+    @apply bg-base border border-border rounded-xl p-7 relative overflow-hidden
+           transition-all duration-200
+           hover:border-primary/40 hover:-translate-y-1
+           hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)];
+  }
+  .card--service::before {
+    @apply content-[''] absolute top-0 left-0 right-0 h-[3px]
+           bg-primary opacity-0 transition-opacity duration-200;
+  }
+  .card--service:hover::before {
+    @apply opacity-100;
+  }
+  .card--featured {
+    @apply border-primary/60 bg-gradient-to-br from-base to-primary/5;
+  }
+  .card--featured::before {
+    @apply opacity-100;
+  }
+
+  /* ── Step card (Process) ── */
+  .step-card {
+    @apply bg-base border border-border rounded-xl p-6
+           transition-all duration-200
+           hover:border-primary/40
+           hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)];
+  }
+
+  /* ── Nav ── */
+  .nav-pill {
+    @apply px-4 py-1.5 rounded-full text-xs font-medium tracking-wide
+           transition-all duration-200;
+  }
+  .nav-pill--active {
+    @apply bg-primary text-white;
+  }
+  .nav-pill--idle {
+    @apply text-muted hover:text-text hover:bg-primary/5;
+  }
+
+  /* ── Badge ── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 font-semibold uppercase
+           tracking-widest text-[0.65rem] px-3 py-1 rounded-full
+           bg-primary/10 text-primary border border-primary/25;
+  }
+
+  /* ── Form inputs ── */
+  .input {
+    @apply w-full bg-base border border-border rounded-lg px-4 py-3.5
+           text-text text-sm placeholder:text-muted/50 outline-none
+           focus:border-primary focus:ring-2 focus:ring-primary/10
+           transition-all duration-150;
+  }
+
+  /* ── FAQ item ── */
+  .faq-item {
+    @apply border-b border-border;
+  }
+
+  /* ── Footer links ── */
+  .footer-link {
+    @apply text-gray-400 text-sm hover:text-white transition-colors duration-150;
+  }
+}
