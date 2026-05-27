@@ -1,12 +1,14 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Drill, Hammer, PaintRoller, Sparkles, SlidersHorizontal, ShieldCheck } from 'lucide-react'
 
 const steps = [
   {
-    number: '01',
-    icon:   Drill,
-    title:  'Grind It',
+    number:   '01',
+    icon:     Drill,
+    title:    'Grind It',
     description: 'We use professional diamond grinding equipment to open up the concrete surface and ensure a mechanical bond. This is the most critical step most DIY kits skip entirely.',
+    featured: true,
   },
   {
     number: '02',
@@ -41,6 +43,8 @@ const steps = [
 ]
 
 export default function Process() {
+  const [hovered, setHovered] = useState(null)
+
   return (
     <section id="process" className="section bg-base">
       <div className="container">
@@ -65,14 +69,18 @@ export default function Process() {
 
         {/* Steps grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {steps.map(({ number, icon: Icon, title, description }, i) => (
+          {steps.map(({ number, icon: Icon, title, description, featured }, i) => {
+            const showFeatured = featured && (hovered === null || hovered === i)
+            return (
             <motion.div
               key={number}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="step-card relative"
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              className={`step-card relative ${showFeatured ? 'card--featured border-primary/60' : ''}`}
             >
               <span className="absolute top-4 right-5 text-6xl font-bold text-border select-none leading-none">
                 {number}
@@ -83,7 +91,7 @@ export default function Process() {
               <h3 className="text-text mb-2">{title}</h3>
               <p className="text-sm relative z-10">{description}</p>
             </motion.div>
-          ))}
+          )})}
         </div>
 
       </div>

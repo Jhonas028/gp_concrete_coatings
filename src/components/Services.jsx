@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import img1 from '../assets/gpcc_img1.jpg'
@@ -61,6 +62,8 @@ const services = [
 ]
 
 export default function Services() {
+  const [hovered, setHovered] = useState(null)
+
   return (
     <section id="services" className="section bg-base">
       <div className="container">
@@ -85,14 +88,18 @@ export default function Services() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((svc, i) => (
+          {services.map((svc, i) => {
+            const showFeatured = svc.featured && (hovered === null || hovered === i)
+            return (
             <motion.div
               key={svc.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`card--service flex flex-col ${svc.featured ? 'card--featured' : ''}`}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              className={`card--service flex flex-col ${showFeatured ? 'card--featured' : ''}`}
             >
               {/* Image */}
               <div className="w-full h-44 rounded-lg overflow-hidden mb-5">
@@ -130,7 +137,7 @@ export default function Services() {
                 />
               </a>
             </motion.div>
-          ))}
+          )})}
         </div>
 
       </div>
