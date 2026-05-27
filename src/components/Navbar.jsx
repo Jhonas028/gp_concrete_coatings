@@ -66,6 +66,14 @@ export default function Navbar() {
   }
 
   return (
+    <>
+    {menuOpen && (
+      <div
+        className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
+        onClick={() => setMenuOpen(false)}
+      />
+    )}
+
     <header
       className={`fixed top-0 left-0 right-0 z-50 bg-base border-b border-border
         transition-all duration-300
@@ -180,5 +188,6 @@ export default function Navbar() {
         </div>
       )}
     </header>
+    </>
   )
 }
