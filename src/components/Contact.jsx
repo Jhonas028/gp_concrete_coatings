@@ -63,7 +63,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-12"
+          className="mb-10"
         >
           <span className="eyebrow mb-4 block">Contact Us</span>
           <h2 className="text-text mb-4">Get Your Free Quote</h2>
@@ -73,67 +73,59 @@ export default function Contact() {
           </p>
         </motion.div>
 
+        {/* Contact info — horizontal row */}
+        <div className="grid sm:grid-cols-3 gap-4 mb-10">
+          {info.map(({ icon: Icon, label, value, href }, i) => (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="flex items-center gap-4 bg-surface border border-border rounded-xl p-4"
+            >
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Icon size={17} className="text-primary" strokeWidth={1.75} />
+              </div>
+              <div>
+                <p className="text-xs text-muted uppercase tracking-wide font-medium mb-0.5">{label}</p>
+                {href ? (
+                  <a href={href} className="text-sm font-semibold text-text hover:text-primary transition-colors">
+                    {value}
+                  </a>
+                ) : (
+                  <p className="text-sm font-semibold text-text">{value}</p>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Map + Form — side by side */}
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
-          {/* Left — slides in from left */}
+          {/* Map */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col gap-8"
+            className="rounded-2xl overflow-hidden border border-border shadow-sm"
+            style={{ height: '100%', minHeight: '420px' }}
           >
-            {/* Contact info — staggered */}
-            <div className="flex flex-col gap-4">
-              {info.map(({ icon: Icon, label, value, href }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  whileHover={{ x: 6, transition: { duration: 0.2 } }}
-                  className="flex items-center gap-4"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                    <Icon size={17} className="text-primary" strokeWidth={1.75} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted uppercase tracking-wide font-medium mb-0.5">{label}</p>
-                    {href ? (
-                      <a href={href} className="text-sm font-semibold text-text hover:text-primary transition-colors">
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-sm font-semibold text-text">{value}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Map */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="w-full h-72 rounded-2xl overflow-hidden border border-border shadow-sm"
-            >
-              <iframe
-                title="GP Concrete Coatings location — Livonia Michigan"
-                src="https://maps.google.com/maps?q=Livonia,Michigan&t=&z=12&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </motion.div>
+            <iframe
+              title="GP Concrete Coatings location — Livonia Michigan"
+              src="https://maps.google.com/maps?q=Livonia,Michigan&t=&z=12&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0, display: 'block', minHeight: '420px' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </motion.div>
 
-          {/* Right — slides in from right */}
+          {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
