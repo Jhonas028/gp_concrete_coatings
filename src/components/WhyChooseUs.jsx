@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { ShieldCheck, Wrench, Star, Clock, BadgeCheck, HardHat } from 'lucide-react'
 
 const reasons = [
@@ -39,7 +40,13 @@ export default function WhyChooseUs() {
       <div className="container">
 
         {/* Header */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-12"
+        >
           <span className="eyebrow mb-4 block">Why Choose Us</span>
           <h2 className="text-text mb-4">
             Why Michigan Chooses GP Concrete Coatings
@@ -48,25 +55,27 @@ export default function WhyChooseUs() {
             We don't cut corners on prep, materials, or workmanship. Here's what sets us
             apart from every other coating contractor in Southeast Michigan.
           </p>
-        </div>
+        </motion.div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {reasons.map(({ icon: Icon, title, description }) => (
-            <div key={title} className="card flex gap-5 items-start">
-
-              {/* Icon */}
+          {reasons.map(({ icon: Icon, title, description }, i) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="card flex gap-5 items-start"
+            >
               <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                 <Icon size={20} className="text-primary" strokeWidth={1.75} />
               </div>
-
-              {/* Text */}
               <div>
                 <h4 className="text-text mb-1.5">{title}</h4>
                 <p className="text-sm">{description}</p>
               </div>
-
-            </div>
+            </motion.div>
           ))}
         </div>
 

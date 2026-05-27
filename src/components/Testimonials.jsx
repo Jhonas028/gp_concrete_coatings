@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Star, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 
 const reviews = [
@@ -48,10 +49,16 @@ export default function Testimonials() {
       <div className="container">
 
         {/* Header */}
-        <div className="mb-12 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-12 text-center"
+        >
           <span className="eyebrow mb-4 justify-center flex">Client Reviews</span>
           <h2 className="text-text">What Our Clients Are Saying</h2>
-        </div>
+        </motion.div>
 
         {/* Desktop — 3 cards */}
         <div className="hidden lg:grid grid-cols-3 gap-6 mb-10">

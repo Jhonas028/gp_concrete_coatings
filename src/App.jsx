@@ -4,6 +4,8 @@ import Hero from './components/Hero'
 import Services from './components/Services'
 import WhyChooseUs from './components/WhyChooseUs'
 import Process from './components/Process'
+import Gallery from './components/Gallery'
+import MaterialSystem from './components/MaterialSystem'
 import Testimonials from './components/Testimonials'
 import AreasServed from './components/AreasServed'
 import FAQ from './components/FAQ'
@@ -19,6 +21,8 @@ function HomePage() {
         <Services />
         <WhyChooseUs />
         <Process />
+        <MaterialSystem />
+        <Gallery />
         <Testimonials />
         <AreasServed />
         <FAQ />

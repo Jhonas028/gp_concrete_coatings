@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Drill, Hammer, PaintRoller, Sparkles, SlidersHorizontal, ShieldCheck } from 'lucide-react'
 
 const steps = [
@@ -45,7 +46,13 @@ export default function Process() {
       <div className="container">
 
         {/* Header */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-12"
+        >
           <span className="eyebrow mb-4 block">How We Work</span>
           <h2 className="text-text mb-4">
             Our 6-Step Concrete Coating Process
@@ -54,30 +61,28 @@ export default function Process() {
             Great coatings start with great preparation. Here's exactly how we do it —
             no shortcuts, no skipped steps.
           </p>
-        </div>
+        </motion.div>
 
         {/* Steps grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {steps.map(({ number, icon: Icon, title, description }) => (
-            <div key={number} className="step-card relative">
-
-              {/* Step number — background watermark */}
+          {steps.map(({ number, icon: Icon, title, description }, i) => (
+            <motion.div
+              key={number}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="step-card relative"
+            >
               <span className="absolute top-4 right-5 text-6xl font-bold text-border select-none leading-none">
                 {number}
               </span>
-
-              {/* Icon */}
               <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                 <Icon size={20} className="text-primary" strokeWidth={1.75} />
               </div>
-
-              {/* Title */}
               <h3 className="text-text mb-2">{title}</h3>
-
-              {/* Description */}
               <p className="text-sm relative z-10">{description}</p>
-
-            </div>
+            </motion.div>
           ))}
         </div>
 

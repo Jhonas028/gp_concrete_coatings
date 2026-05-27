@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { MapPin } from 'lucide-react'
 
 const cities = [
@@ -16,7 +17,12 @@ export default function AreasServed() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
           {/* Left — text + cities */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             <span className="eyebrow mb-4 block">Service Area</span>
             <h2 className="text-text mb-4">Serving Southeast Michigan</h2>
             <p className="mb-8">
@@ -41,10 +47,10 @@ export default function AreasServed() {
                 </span>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Right — map embed */}
-          <div className="w-full h-[420px] rounded-2xl overflow-hidden border border-border shadow-sm">
+          <div className="w-full h-105 rounded-2xl overflow-hidden border border-border shadow-sm">
             <iframe
               title="GP Concrete Coatings service area — Southeast Michigan"
               src="https://maps.google.com/maps?q=Southeast+Michigan&t=&z=9&ie=UTF8&iwloc=&output=embed"

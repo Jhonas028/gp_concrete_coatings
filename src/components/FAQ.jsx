@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 
 const faqs = [
@@ -42,14 +43,20 @@ export default function FAQ() {
       <div className="container">
 
         {/* Header */}
-        <div className="mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-10"
+        >
           <span className="eyebrow mb-4 block">FAQ</span>
           <h2 className="text-text mb-4">Frequently Asked Questions</h2>
           <p className="max-w-2xl">
             Everything you need to know about epoxy and polyaspartic concrete floor coatings
             in Michigan — answered straight.
           </p>
-        </div>
+        </motion.div>
 
         {/* Accordion */}
         <div className="max-w-3xl divide-y divide-border border-t border-border">

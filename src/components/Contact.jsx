@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react'
 
 const info = [
@@ -57,14 +58,20 @@ export default function Contact() {
       <div className="container">
 
         {/* Header */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-12"
+        >
           <span className="eyebrow mb-4 block">Contact Us</span>
           <h2 className="text-text mb-4">Get Your Free Quote</h2>
           <p className="max-w-xl">
             Fill out the form and we'll get back to you within one business day.
             Prefer to talk? Call us directly — we're happy to answer any questions.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 

@@ -1,24 +1,31 @@
+import { motion } from 'framer-motion'
 import { ArrowRight, Phone } from 'lucide-react'
 
 export default function CTA() {
   return (
-    <section className="relative py-24 md:py-32 bg-[#0a0a0a] overflow-hidden">
+    <section className="relative py-24 md:py-32 bg-canvas overflow-hidden">
 
       {/* Decorative glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-          w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px]" />
+          w-150 h-150 rounded-full bg-primary/10 blur-[120px]" />
       </div>
 
-      <div className="container relative z-10 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="container relative z-10 text-center"
+      >
 
         {/* Eyebrow */}
         <div className="flex items-center justify-center gap-3 mb-6">
-          <span className="block w-8 h-[2px] bg-primary shrink-0" />
+          <span className="block w-8 h-0.5 bg-primary shrink-0" />
           <span className="text-primary font-semibold uppercase tracking-[0.2em] text-[0.7rem]">
             Get Started Today
           </span>
-          <span className="block w-8 h-[2px] bg-primary shrink-0" />
+          <span className="block w-8 h-0.5 bg-primary shrink-0" />
         </div>
 
         {/* Headline */}
@@ -53,7 +60,7 @@ export default function CTA() {
           Licensed &amp; Insured · Southeast Michigan · Free Estimates
         </p>
 
-      </div>
+      </motion.div>
     </section>
   )
 }
