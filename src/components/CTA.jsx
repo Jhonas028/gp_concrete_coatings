@@ -19,15 +19,6 @@ export default function CTA() {
         className="container relative z-10 text-center"
       >
 
-        {/* Eyebrow */}
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <span className="block w-8 h-0.5 bg-primary shrink-0" />
-          <span className="text-primary font-semibold uppercase tracking-[0.2em] text-[0.7rem]">
-            Get Started Today
-          </span>
-          <span className="block w-8 h-0.5 bg-primary shrink-0" />
-        </div>
-
         {/* Headline */}
         <h2 className="text-white mb-6 max-w-3xl mx-auto">
           Ready to Transform Your Concrete Floor?

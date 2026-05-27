@@ -28,7 +28,6 @@ export default function MaterialSystem() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="eyebrow mb-4 block">The System</span>
             <h2 className="text-text mb-5">Built to Last, Layer by Layer</h2>
             <p className="mb-8">
               A professional epoxy coating isn't a single product — it's a multi-layer system,

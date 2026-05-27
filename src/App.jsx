@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import AboutUs from './components/AboutUs'
 import Services from './components/Services'
 import WhyChooseUs from './components/WhyChooseUs'
 import Process from './components/Process'
@@ -18,6 +19,7 @@ function HomePage() {
     <>
       <main>
         <Hero />
+        <AboutUs />
         <Services />
         <WhyChooseUs />
         <Process />

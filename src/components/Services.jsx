@@ -76,7 +76,6 @@ export default function Services() {
           transition={{ duration: 0.5 }}
           className="mb-12"
         >
-          <span className="eyebrow mb-4 block">Our Services</span>
           <h2 className="text-text mb-4">
             Concrete Coating Services in Michigan
           </h2>
@@ -89,7 +88,9 @@ export default function Services() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((svc, i) => {
-            const showFeatured = svc.featured && (hovered === null || hovered === i)
+            const showFeatured = svc.featured
+              ? (hovered === null || hovered === i)
+              : hovered === i
             return (
             <motion.div
               key={svc.title}
@@ -110,32 +111,40 @@ export default function Services() {
                 />
               </div>
 
-              {/* Featured badge */}
-              {svc.featured && (
-                <span className="badge mb-3 self-start">Most Popular</span>
-              )}
-
               {/* Title */}
-              <h3 className="text-text mb-2">{svc.title}</h3>
+              <h3 className={`mb-2 ${showFeatured ? 'text-white' : 'text-text'}`}>{svc.title}</h3>
 
               {/* Description */}
-              <p className="text-sm flex-1 mb-5">{svc.description}</p>
+              <p className={`text-sm flex-1 mb-5 ${showFeatured ? 'text-white/80' : ''}`}>{svc.description}</p>
 
               {/* CTA */}
-              <a
-                href={svc.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium underline underline-offset-4
-                  transition-colors duration-150 group text-primary hover:text-primary-dk"
-              >
-                Learn More
-                <ArrowRight
-                  size={13}
-                  strokeWidth={2.5}
-                  className="group-hover:translate-x-1 transition-transform duration-150"
-                />
-              </a>
+              {showFeatured ? (
+                <a
+                  href={svc.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--lg bg-hover text-white hover:bg-hover-lt justify-center
+                    hover:shadow-[0_0_20px_rgba(204,0,0,0.4)] hover:-translate-y-px transition-all duration-200"
+                >
+                  Learn More
+                  <ArrowRight size={14} strokeWidth={2.5} />
+                </a>
+              ) : (
+                <a
+                  href={svc.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium underline underline-offset-4
+                    transition-colors duration-150 group text-primary hover:text-hover"
+                >
+                  Learn More
+                  <ArrowRight
+                    size={13}
+                    strokeWidth={2.5}
+                    className="group-hover:translate-x-1 transition-transform duration-150"
+                  />
+                </a>
+              )}
             </motion.div>
           )})}
         </div>

@@ -119,7 +119,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-5 shrink-0">
           <a
             href="tel:+17345192229"
-            className="flex items-center gap-2 text-muted text-xs font-medium hover:text-primary transition-colors"
+            className="flex items-center gap-2 text-muted text-xs font-medium hover:text-hover transition-colors"
           >
             <Phone size={13} strokeWidth={2.5} />
             (734) 519-2229
@@ -151,7 +151,7 @@ export default function Navbar() {
                   href={link.to}
                   onClick={() => handleClick(link)}
                   className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150
-                    ${active === link.label ? 'bg-primary text-white' : 'text-muted hover:text-text hover:bg-primary/5'}`}
+                    ${active === link.label ? 'bg-primary text-white' : 'text-muted hover:text-text hover:bg-hover/5'}`}
                 >
                   {link.label}
                 </a>
@@ -161,7 +161,7 @@ export default function Navbar() {
                   to={link.to}
                   onClick={() => handleClick(link)}
                   className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150
-                    ${active === link.label ? 'bg-primary text-white' : 'text-muted hover:text-text hover:bg-primary/5'}`}
+                    ${active === link.label ? 'bg-primary text-white' : 'text-muted hover:text-text hover:bg-hover/5'}`}
                 >
                   {link.label}
                 </Link>
@@ -171,7 +171,7 @@ export default function Navbar() {
             <div className="pt-3 mt-2 border-t border-border flex flex-col gap-3">
               <a
                 href="tel:+17345192229"
-                className="flex items-center gap-2 text-muted text-sm px-4 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-muted text-sm px-4 hover:text-hover transition-colors"
               >
                 <Phone size={14} strokeWidth={2.5} />
                 (734) 519-2229

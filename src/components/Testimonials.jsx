@@ -73,7 +73,7 @@ function Stars() {
 function ReviewCard({ review }) {
   return (
     <div className="bg-base border border-border rounded-2xl p-5 flex flex-col gap-3
-      h-full shadow-sm hover:border-primary/40 hover:shadow-md transition-all duration-200">
+      h-full shadow-sm hover:border-hover/40 hover:shadow-md transition-all duration-200">
 
       {/* Top row: avatar + name */}
       <div className="flex items-center gap-3">
@@ -148,7 +148,6 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <span className="eyebrow mb-4 block">Client Reviews</span>
           <h2 className="text-text mb-4">What Our Clients Are Saying</h2>
         </motion.div>
 
@@ -175,7 +174,7 @@ export default function Testimonials() {
           <button
             onClick={prev}
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center
-              text-muted hover:border-primary hover:text-primary transition-colors"
+              text-muted hover:border-hover hover:text-hover transition-colors"
             aria-label="Previous"
           >
             <ChevronLeft size={16} />
@@ -196,7 +195,7 @@ export default function Testimonials() {
           <button
             onClick={next}
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center
-              text-muted hover:border-primary hover:text-primary transition-colors"
+              text-muted hover:border-hover hover:text-hover transition-colors"
             aria-label="Next"
           >
             <ChevronRight size={16} />

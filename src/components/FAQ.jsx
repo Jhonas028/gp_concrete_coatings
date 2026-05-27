@@ -50,7 +50,6 @@ export default function FAQ() {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <span className="eyebrow mb-4 block">FAQ</span>
           <h2 className="text-text mb-4">Frequently Asked Questions</h2>
           <p className="max-w-2xl">
             Everything you need to know about epoxy and polyaspartic concrete floor coatings
@@ -79,14 +78,14 @@ export default function FAQ() {
                   aria-expanded={isOpen}
                 >
                   <span className={`text-sm font-semibold leading-snug transition-colors duration-150
-                    ${isOpen ? 'text-primary' : 'text-text group-hover:text-primary'}`}>
+                    ${isOpen ? 'text-primary' : 'text-text group-hover:text-hover'}`}>
                     {faq.q}
                   </span>
                   <span className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center
                     border transition-all duration-150 mt-0.5
                     ${isOpen
                       ? 'bg-primary border-primary text-white'
-                      : 'border-border text-muted group-hover:border-primary group-hover:text-primary'
+                      : 'border-border text-muted group-hover:border-hover group-hover:text-hover'
                     }`}>
                     {isOpen
                       ? <ChevronUp   size={13} strokeWidth={2.5} />

@@ -23,7 +23,6 @@ export default function AreasServed() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <span className="eyebrow mb-4 block">Service Area</span>
             <h2 className="text-text mb-4">Serving Southeast Michigan</h2>
             <p className="mb-8">
               GP Concrete Coatings provides epoxy and polyaspartic floor coatings
@@ -44,7 +43,7 @@ export default function AreasServed() {
                   className="inline-flex items-center gap-1.5 px-3 py-1.5
                     bg-surface border border-border rounded-full
                     text-xs font-medium text-text cursor-default
-                    hover:border-primary hover:text-primary hover:bg-primary/5
+                    hover:border-hover hover:text-hover hover:bg-hover/5
                     transition-colors duration-150"
                 >
                   <MapPin size={10} className="text-primary shrink-0" />

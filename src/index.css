@@ -11,6 +11,8 @@
   --color-primary:    #1c00db;
   --color-primary-lt: #3d20f0;
   --color-primary-dk: #1400a8;
+  --color-hover:      #cc0000;
+  --color-hover-lt:   #e81200;
 
   /* ── Text ── */
   --color-text:       #111111;
@@ -76,16 +78,16 @@
            cursor-pointer transition-all duration-200 whitespace-nowrap;
   }
   .btn--primary {
-    @apply bg-primary text-white hover:bg-primary-lt
-           hover:shadow-[0_0_28px_rgba(28,0,219,0.35)] hover:-translate-y-px;
+    @apply bg-primary text-white hover:bg-hover-lt
+           hover:shadow-[0_0_28px_rgba(231,14,0,0.35)] hover:-translate-y-px;
   }
   .btn--outline {
     @apply border-border text-text
-           hover:border-primary hover:text-primary hover:bg-primary/5;
+           hover:border-hover hover:text-hover hover:bg-hover/5;
   }
   .btn--dark-outline {
     @apply border-white/25 text-white
-           hover:border-primary hover:text-primary;
+           hover:border-hover hover:text-hover;
   }
   .btn--lg {
     @apply px-9 py-4 text-sm;
@@ -95,25 +97,25 @@
   .card {
     @apply bg-base border border-border rounded-xl p-7
            transition-all duration-200
-           hover:border-primary/40 hover:-translate-y-1
+           hover:border-hover/40 hover:-translate-y-1
            hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)];
   }
 
   .card--service {
     @apply bg-base border border-border rounded-xl p-7 relative overflow-hidden
            transition-all duration-200
-           hover:border-primary/40 hover:-translate-y-1
+           hover:border-hover/40 hover:-translate-y-1
            hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)];
   }
   .card--service::before {
     @apply content-[''] absolute top-0 left-0 right-0 h-[3px]
-           bg-primary opacity-0 transition-opacity duration-200;
+           bg-hover opacity-0 transition-opacity duration-200;
   }
   .card--service:hover::before {
     @apply opacity-100;
   }
   .card--featured {
-    @apply border-primary/60 bg-gradient-to-br from-base to-primary/5;
+    @apply bg-primary border-primary;
   }
   .card--featured::before {
     @apply opacity-100;
@@ -123,7 +125,7 @@
   .step-card {
     @apply bg-base border border-border rounded-xl p-6
            transition-all duration-200
-           hover:border-primary/40
+           hover:border-hover/40
            hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)];
   }
 
@@ -136,7 +138,7 @@
     @apply bg-primary text-white;
   }
   .nav-pill--idle {
-    @apply text-muted hover:text-text hover:bg-primary/5;
+    @apply text-muted hover:text-text hover:bg-hover/5;
   }
 
   /* ── Badge ── */

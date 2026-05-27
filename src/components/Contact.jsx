@@ -65,7 +65,6 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <span className="eyebrow mb-4 block">Contact Us</span>
           <h2 className="text-text mb-4">Get Your Free Quote</h2>
           <p className="max-w-xl">
             Fill out the form and we'll get back to you within one business day.
@@ -90,7 +89,7 @@ export default function Contact() {
               <div>
                 <p className="text-xs text-muted uppercase tracking-wide font-medium mb-0.5">{label}</p>
                 {href ? (
-                  <a href={href} className="text-sm font-semibold text-text hover:text-primary transition-colors">
+                  <a href={href} className="text-sm font-semibold text-text hover:text-hover transition-colors">
                     {value}
                   </a>
                 ) : (

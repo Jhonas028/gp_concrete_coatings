@@ -56,7 +56,6 @@ export default function Gallery() {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <span className="eyebrow mb-4 block">Our Work</span>
           <h2 className="text-text mb-4">Project Gallery</h2>
           <p className="max-w-2xl">
             A look at the floors we've transformed — garages, basements, commercial spaces,
@@ -97,7 +96,7 @@ export default function Gallery() {
           <button
             onClick={prev}
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center
-              text-muted hover:border-primary hover:text-primary transition-colors"
+              text-muted hover:border-hover hover:text-hover transition-colors"
             aria-label="Previous"
           >
             <ChevronLeft size={16} />
@@ -118,7 +117,7 @@ export default function Gallery() {
           <button
             onClick={next}
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center
-              text-muted hover:border-primary hover:text-primary transition-colors"
+              text-muted hover:border-hover hover:text-hover transition-colors"
             aria-label="Next"
           >
             <ChevronRight size={16} />
