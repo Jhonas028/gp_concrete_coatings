@@ -50,8 +50,7 @@ export default function Testimonials() {
         {/* Header */}
         <div className="mb-12 text-center">
           <span className="eyebrow mb-4 justify-center flex">Client Reviews</span>
-          <h2 className="text-text mb-4">What Our Clients Are Saying</h2>
-          <Stars count={5} />
+          <h2 className="text-text">What Our Clients Are Saying</h2>
         </div>
 
         {/* Desktop — 3 cards */}

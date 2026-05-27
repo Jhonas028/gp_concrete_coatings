@@ -1,34 +1,70 @@
 import { useState, useEffect } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Phone, Menu, X } from 'lucide-react'
 import logo from '../assets/gpcc_logo.jpeg'
 
 const links = [
-  { label: 'Home',       to: '/',         route: true  },
-  { label: 'About Us',   to: '#about',    route: false },
-  { label: 'Service',    to: '#services', route: false },
-  { label: 'Blog',       to: '/blog',     route: true  },
-  { label: 'Contact Us', to: '#contact',  route: false },
+  { label: 'Home',       to: '/',          hash: false },
+  { label: 'Service',    to: '/#services', hash: true  },
+  { label: 'About Us',   to: '/#about',    hash: true  },
+  { label: 'Blog',       to: '/blog',      hash: false },
+  { label: 'Contact Us', to: '/#contact',  hash: true  },
 ]
 
+const sectionMap = {
+  home:     'Home',
+  about:    'About Us',
+  services: 'Service',
+  contact:  'Contact Us',
+}
+
 export default function Navbar() {
-  const [scrolled,  setScrolled]  = useState(false)
-  const [menuOpen,  setMenuOpen]  = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [active,   setActive]   = useState('Home')
+  const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
 
+  // Scroll shadow
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const isActive = (link) => {
-    if (link.route) return pathname === link.to
-    return false
-  }
+  // Set active based on current route or scroll position
+  useEffect(() => {
+    if (pathname === '/blog') {
+      setActive('Blog')
+      return
+    }
 
-  const pillClass = (link) =>
-    `nav-pill ${isActive(link) ? 'nav-pill--active' : 'nav-pill--idle'}`
+    if (pathname !== '/') return
+
+    const sectionIds = ['home', 'services', 'about', 'contact']
+
+    const detect = () => {
+      const trigger = window.scrollY + window.innerHeight * 0.35
+      let current = 'home'
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el && el.offsetTop <= trigger) current = id
+      }
+      setActive(sectionMap[current] ?? 'Home')
+    }
+
+    window.addEventListener('scroll', detect, { passive: true })
+    detect()
+    return () => window.removeEventListener('scroll', detect)
+  }, [pathname])
+
+  const pillClass = (label) =>
+    `nav-pill ${active === label ? 'nav-pill--active' : 'nav-pill--idle'}`
+
+  const handleClick = (link) => {
+    if (!link.hash) setActive(link.label)
+    if (link.label === 'Home') window.scrollTo({ top: 0, behavior: 'smooth' })
+    setMenuOpen(false)
+  }
 
   return (
     <header
@@ -38,8 +74,8 @@ export default function Navbar() {
     >
       <div className="container flex items-center justify-between h-20">
 
-        {/* Logo — far left */}
-        <Link to="/" className="shrink-0">
+        {/* Logo */}
+        <Link to="/" onClick={() => setActive('Home')} className="shrink-0">
           <img
             src={logo}
             alt="GP Concrete Coatings logo"
@@ -47,30 +83,27 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Nav links — centered */}
+        {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
           {links.map((link) =>
-            link.route ? (
-              <NavLink
-                key={link.label}
-                to={link.to}
-                end
-                onClick={() => setMenuOpen(false)}
-                className={({ isActive }) =>
-                  `nav-pill ${isActive ? 'nav-pill--active' : 'nav-pill--idle'}`
-                }
-              >
-                {link.label}
-              </NavLink>
-            ) : (
+            link.hash ? (
               <a
                 key={link.label}
                 href={link.to}
-                onClick={() => setMenuOpen(false)}
-                className="nav-pill nav-pill--idle"
+                onClick={() => handleClick(link)}
+                className={pillClass(link.label)}
               >
                 {link.label}
               </a>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.to}
+                onClick={() => handleClick(link)}
+                className={pillClass(link.label)}
+              >
+                {link.label}
+              </Link>
             )
           )}
         </nav>
@@ -84,12 +117,12 @@ export default function Navbar() {
             <Phone size={13} strokeWidth={2.5} />
             (734) 519-2229
           </a>
-          <Link to="#contact" className="btn btn--primary py-2.5! px-6! text-xs!">
+          <a href="/#contact" className="btn btn--primary py-2.5! px-6! text-xs!">
             Get Free Quote
-          </Link>
+          </a>
         </div>
 
-        {/* Mobile — hamburger */}
+        {/* Mobile hamburger */}
         <button
           className="lg:hidden text-text p-2 -mr-2"
           onClick={() => setMenuOpen(prev => !prev)}
@@ -105,28 +138,26 @@ export default function Navbar() {
         <div className="lg:hidden bg-surface border-t border-border">
           <div className="container py-4 flex flex-col gap-1">
             {links.map((link) =>
-              link.route ? (
-                <NavLink
-                  key={link.label}
-                  to={link.to}
-                  end
-                  onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150
-                    ${isActive ? 'bg-primary text-white' : 'text-muted hover:text-text hover:bg-primary/5'}`
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              ) : (
+              link.hash ? (
                 <a
                   key={link.label}
                   href={link.to}
-                  onClick={() => setMenuOpen(false)}
-                  className="px-4 py-3 rounded-xl text-sm font-medium text-muted hover:text-text hover:bg-primary/5 transition-all duration-150"
+                  onClick={() => handleClick(link)}
+                  className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150
+                    ${active === link.label ? 'bg-primary text-white' : 'text-muted hover:text-text hover:bg-primary/5'}`}
                 >
                   {link.label}
                 </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  onClick={() => handleClick(link)}
+                  className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150
+                    ${active === link.label ? 'bg-primary text-white' : 'text-muted hover:text-text hover:bg-primary/5'}`}
+                >
+                  {link.label}
+                </Link>
               )
             )}
 
@@ -138,13 +169,13 @@ export default function Navbar() {
                 <Phone size={14} strokeWidth={2.5} />
                 (734) 519-2229
               </a>
-              <Link
-                to="#contact"
+              <a
+                href="/#contact"
                 onClick={() => setMenuOpen(false)}
                 className="btn btn--primary w-full justify-center"
               >
                 Get Free Quote
-              </Link>
+              </a>
             </div>
           </div>
         </div>
